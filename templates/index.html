@@ -1,0 +1,112 @@
+{{include file="header.html"}}
+
+<body>
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-1">
+                <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#myModal">
+                    會員登入
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+    
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">登入</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Some text in the modal.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-success btn-md" >
+                    會員管理
+                </button>
+
+
+            </div>
+            <div class="col-md-8">
+                <h1 class="text-center text-primary">
+                    便當訂起來
+                </h1>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-warning">
+                    訂單管理
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-primary">
+                    新增品項
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 paddingTop">
+                <img alt="Bootstrap Image Preview"
+                    src="https://s.yimg.com/ny/api/res/1.2/xgHHgkEdYbOrPewQZxk5ZA--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/http://media.zenfs.com/zh-Hant-TW/homerun/ftvn.com.tw/0a8050854441c70640ca651fdbf13ec1"
+                    class="rounded" height="160" />
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <h2>
+                            限量紀念便當
+                        </h2>
+                        <h5>
+                            我是備註哦哦哦哦
+                        </h5>
+                        <h4 class="pull-right">售價：100元</h4>
+                    </div>
+                </div>
+
+                <form class="form-inline" action="">
+                    <div class="form-group col-md-4">
+                        數量：<input type="number" class="form-control amount" id="amount" min="0" max="50" maxlength="1"
+                            value="0">個
+
+                        <p class="text-danger">限制最大數量50個</p>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        備註：
+                        <input maxlength="20" size="20" class="form-control" id="transactionRemarks">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-success">
+                            購買
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-1 paddingTopButton">
+                <button type="button" class="btn btn-info">
+                    修改
+                </button>
+            </div>
+
+            <div class="col-md-1 paddingTopButton">
+                <button type="button" class="btn btn-danger btn-md">
+                    刪除
+                </button>
+            </div>
+        </div>
+    </div>
+    {{include file="src.html"}}
+    <script src="http://localhost/bookLunch/templates/index.js" defer></script>
+</body>
+
+</html>
