@@ -14,10 +14,11 @@ require_once 'header.php';
 // 4. 結束連線
 
 $memberMail = $_SESSION['memberMail'] ?? "";
-
+$mail = $_SESSION['mail'] ?? "";
 
 // $smarty->assign('result', $result);
 $smarty->assign('memberMail', $memberMail);
+$smarty->assign('mail', $mail);
 
 
 $smarty->display('index.html');

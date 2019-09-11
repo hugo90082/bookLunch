@@ -3,43 +3,130 @@
 <body>
     <div class="container ">
         <div class="row">
+            {{if !isset($smarty.session.memberID)}}
             <div class="col-md-1">
-                <button type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#myModal">
+                <button id="loginStart" type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#loginModal">
                     會員登入
                 </button>
+
                 <!-- Modal -->
-                <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-    
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">登入</h4>
+                <div class="modal fade in active" id="loginModal" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">登入</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="control-label" for="mailLogin">帳號Mail</label>
+                                    <input id="mailLogin" name="mailLogin" type="text" placeholder="請輸入帳號mail"
+                                        class="form-control input-md" size="30" maxlength="30" value="{{$mail}}">
                                 </div>
-                                <div class="modal-body">
-                                    <p>Some text in the modal.</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <h4>
+                                    <p class='text-center text-danger' id="mailValueLogin"></p>
+                                </h4>
+                                <div class="form-group">
+                                    <label class="control-label" for="passwordLogin">密碼</label>
+                                    <input id="passwordLogin" name="passwordLogin" type="password" placeholder="請輸入密碼"
+                                        class="form-control input-md" size="20" maxlength="20">
                                 </div>
                             </div>
-    
+                            <div class="modal-footer">
+                                <button id="login" name="login" type="button" class="btn btn-primary"
+                                    data-dismiss="">登入</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                            </div>
                         </div>
+
                     </div>
+                </div>
             </div>
             <div class="col-md-1">
-                <button type="button" class="btn btn-success btn-md" >
+            </div>
+            {{/if}}
+            {{if isset($smarty.session.memberID)}}
+            <div class="col-md-1">
+                <button id="logout" type="button" class="btn btn-md btn-danger">
+                    會員登出
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-success btn-md">
                     會員管理
                 </button>
-
-
             </div>
+            {{/if}}
             <div class="col-md-8">
-                <h1 class="text-center text-primary">
-                    便當訂起來
-                </h1>
+                <h3 class="text-center text-primary">
+                    歡迎！{{if $memberMail}}{{$memberMail}}{{else}}{{"訪客"}}{{/if}}，便當訂起來
+                </h3>
             </div>
+            {{if !isset($smarty.session.memberID)}}
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-1">
+                <button id="signUpStart" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#signUpModal">
+                    註冊帳號
+                </button>
+                <!-- Modal -->
+                <div class="modal fade in active" id="signUpModal" role="dialog">
+                    <div class="modal-dialog modal-sm">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">註冊帳號</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="control-label" for="mailSignUp">註冊新帳號Mail</label>
+                                    <input id="mailSignUp" name="mailSignUp" type="text" placeholder="請填寫mail 最多三十字"
+                                        class="form-control input-md" size="30" maxlength="30" value="{{$mail}}">
+                                </div>
+                                <h4>
+                                    <p class='text-center text-danger' id="mailValueSignUp"></p>
+                                </h4>
+                                <div class="form-group">
+                                    <label class="control-label" for="passwordSignUp">新密碼</label>
+                                    <input id="passwordSignUp" name="passwordSignUp" type="password"
+                                        placeholder="請填寫英文或數字或符號" class="form-control input-md" size="30"
+                                        maxlength="30">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label" for="passwordCheckSignUp">再次確認密碼</label>
+                                    <input id="passwordCheckSignUp" name="passwordCheckSignUp" type="password"
+                                        placeholder="請填寫英文或數字或符號" class="form-control input-md" size="30"
+                                        maxlength="30">
+                                </div>
+                                <h4>
+                                    <p class='text-center text-danger' id="passwordValueSignUp"></p>
+                                </h4>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="signUp" name="signUp" type="button" class="btn btn-primary"
+                                    data-dismiss="">確定註冊</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{if isset($smarty.session.memberID) && ($smarty.session.memberID != 1)}}
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-warning">
+                    訂單管理
+                </button>
+            </div>
+            {{/if}}
+            {{if isset($smarty.session.memberID) && ($smarty.session.memberID == 1)}}
             <div class="col-md-1">
                 <button type="button" class="btn btn-warning">
                     訂單管理
@@ -50,6 +137,8 @@
                     新增品項
                 </button>
             </div>
+            {{/if}}
+
         </div>
 
         <div class="row">
@@ -62,17 +151,17 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        <h2>
+                        <h3>
                             限量紀念便當
-                        </h2>
+                        </h3>
                         <h5>
                             我是備註哦哦哦哦
                         </h5>
                         <h4 class="pull-right">售價：100元</h4>
                     </div>
                 </div>
-
-                <form class="form-inline" action="">
+                {{if isset($smarty.session.memberID)}}
+                <div class="form-inline">
                     <div class="form-group col-md-4">
                         數量：<input type="number" class="form-control amount" id="amount" min="0" max="50" maxlength="1"
                             value="0">個
@@ -89,20 +178,22 @@
                             購買
                         </button>
                     </div>
-                </form>
+                </div>
+                {{/if}}
             </div>
-
+            {{if isset($smarty.session.memberID) && ($smarty.session.memberID == 1)}}
             <div class="col-md-1 paddingTopButton">
-                <button type="button" class="btn btn-info">
+                <button type="button" class="btn btn-info pull-right">
                     修改
                 </button>
             </div>
 
             <div class="col-md-1 paddingTopButton">
-                <button type="button" class="btn btn-danger btn-md">
+                <button type="button" class="btn btn-danger btn-md pull-right">
                     刪除
                 </button>
             </div>
+            {{/if}}
         </div>
     </div>
     {{include file="src.html"}}
