@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-11 10:31:59
+/* Smarty version 3.1.34-dev-7, created on 2019-09-12 09:07:28
   from 'C:\xampp\htdocs\bookLunch\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d78b0ffbbba55_74196158',
+  'unifunc' => 'content_5d79eeb064bb88_26115803',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dd4b2f5ec4e10b5e2169af72cc00e86b918ee5f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\index.html',
-      1 => 1568190574,
+      1 => 1568272046,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:src.html' => 1,
   ),
 ),false)) {
-function content_5d78b0ffbbba55_74196158 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d79eeb064bb88_26115803 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -31,7 +31,8 @@ $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_s
         <div class="row">
             <?php if (!isset($_SESSION['memberID'])) {?>
             <div class="col-md-1">
-                <button id="loginStart" type="button" class="btn btn-md btn-danger" data-toggle="modal" data-target="#loginModal">
+                <button id="loginStart" type="button" class="btn btn-md btn-danger" data-toggle="modal"
+                    data-target="#loginModal">
                     會員登入
                 </button>
 
@@ -73,8 +74,7 @@ $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_s
             </div>
             <div class="col-md-1">
             </div>
-            <?php }?>
-            <?php if (isset($_SESSION['memberID'])) {?>
+            <?php }?> <?php if (isset($_SESSION['memberID'])) {?>
             <div class="col-md-1">
                 <button id="logout" type="button" class="btn btn-md btn-danger">
                     會員登出
@@ -99,7 +99,8 @@ echo "訪客";
             <div class="col-md-1">
             </div>
             <div class="col-md-1">
-                <button id="signUpStart" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#signUpModal">
+                <button id="signUpStart" type="button" class="btn btn-success btn-md" data-toggle="modal"
+                    data-target="#signUpModal">
                     註冊帳號
                 </button>
                 <!-- Modal -->
@@ -148,8 +149,7 @@ echo "訪客";
                     </div>
                 </div>
             </div>
-            <?php }?>
-            <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] != 1)) {?>
+            <?php }?> <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] != 1)) {?>
             <div class="col-md-1">
             </div>
             <div class="col-md-1">
@@ -157,39 +157,48 @@ echo "訪客";
                     訂單管理
                 </button>
             </div>
-            <?php }?>
-            <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] == 1)) {?>
+            <?php }?> <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] == 1)) {?>
             <div class="col-md-1">
                 <button type="button" class="btn btn-warning">
                     訂單管理
                 </button>
             </div>
             <div class="col-md-1">
-                <button type="button" class="btn btn-primary">
+                <a href="./create.php" class="btn btn-primary">
                     新增品項
-                </button>
+                </a>
             </div>
             <?php }?>
 
         </div>
-
-        <div class="row">
+        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['row']->value, 'data');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['data']->value) {
+?>
+        <div class="row paddingTop">
             <div class="col-md-3 paddingTop">
-                <img alt="Bootstrap Image Preview"
-                    src="https://s.yimg.com/ny/api/res/1.2/xgHHgkEdYbOrPewQZxk5ZA--~A/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAw/http://media.zenfs.com/zh-Hant-TW/homerun/ftvn.com.tw/0a8050854441c70640ca651fdbf13ec1"
-                    class="rounded" height="160" />
+
+                <img alt="Bootstrap Image Preview" src="<?php echo $_smarty_tpl->tpl_vars['data']->value['photo'];?>
+" class="rounded" height="160" width="270" />
             </div>
-            <div class="col-md-7">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-
                         <h3>
-                            限量紀念便當
+                            <?php echo $_smarty_tpl->tpl_vars['data']->value['name'];?>
+
+                            <h4>
+                                <div class="pull-right">剩餘：<?php echo $_smarty_tpl->tpl_vars['data']->value['stock'];?>
+個</div>
+                            </h4>
                         </h3>
                         <h5>
-                            我是備註哦哦哦哦
+                            <?php echo $_smarty_tpl->tpl_vars['data']->value['commodityRemarks'];?>
+
                         </h5>
-                        <h4 class="pull-right">售價：100元</h4>
+                        <h4 class="pull-right">售價：<?php echo $_smarty_tpl->tpl_vars['data']->value['price'];?>
+元</h4>
                     </div>
                 </div>
                 <?php if (isset($_SESSION['memberID'])) {?>
@@ -201,12 +210,12 @@ echo "訪客";
                         <p class="text-danger">限制最大數量50個</p>
 
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-7">
                         備註：
                         <input maxlength="20" size="20" class="form-control" id="transactionRemarks">
                     </div>
                     <div class="form-group col-md-1">
-                        <button type="button" class="btn btn-success">
+                        <button type="button" class="btn btn-success buyButton">
                             購買
                         </button>
                     </div>
@@ -214,19 +223,23 @@ echo "訪客";
                 <?php }?>
             </div>
             <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] == 1)) {?>
-            <div class="col-md-1 paddingTopButton">
-                <button type="button" class="btn btn-info pull-right">
-                    修改
-                </button>
-            </div>
 
-            <div class="col-md-1 paddingTopButton">
-                <button type="button" class="btn btn-danger btn-md pull-right">
-                    刪除
+            <div class="col-md-1">
+
+                <button type="button" class="btn btn-info pull-right editButton">
+                    <span class="glyphicon glyphicon-pencil"></span>修改
                 </button>
+                <button type="button" class="btn btn-danger btn-md pull-right deleteButton">
+                    <span class="glyphicon glyphicon-remove"></span>刪除
+                </button>
+
             </div>
             <?php }?>
         </div>
+        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     </div>
     <?php $_smarty_tpl->_subTemplateRender("file:src.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>

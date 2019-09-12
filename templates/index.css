@@ -1,0 +1,27 @@
+/* .img {
+    max-width: 450px;
+} */
+
+.amount {
+    width: 1em;
+}
+
+.stockPriceInput{
+    width: 7em;
+}
+
+body {
+    padding-top: 1.6%;
+}
+
+.paddingTop {
+    padding-top: 1.5%;
+}
+
+.editButton {
+    margin-top: 45%;
+}
+
+.deleteButton {
+    margin-top: 82%;
+}

@@ -5,19 +5,25 @@ $(".amount").keyup(function () {
 })
 
 $("#loginStart").on('click', function () {
+    let loginInputCheck = 0;
     $("#login").attr("disabled", true);
     $("#passwordLogin").keyup(function () {
-        $("#login").attr("disabled", false);//限制按鈕
+        if (loginInputCheck == 1) {
+            $("#login").attr("disabled", false); //限制按鈕
+        }
+
     })
     $("#mailLogin").keyup(function () {
         let mail = $(this).val();
-        let reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;//判斷格式
+        let reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/; //判斷格式
         if (reg.test(mail)) {
             $("#mailValueLogin").text("格式正確");
-            $("#login").attr("disabled", false);//格式正確就解開按鈕
+            $("#login").attr("disabled", false); //格式正確就解開按鈕
+            loginInputCheck = 1
         } else {
             $("#mailValueLogin").text("mail格式不正確");
             $("#login").attr("disabled", true);
+            loginInputCheck = 0
         }
     })
 })
@@ -70,12 +76,12 @@ $("#signUpStart").on('click', function () {
     $("#signUp").attr("disabled", true);
     $("#mailSignUp").keyup(function () {
         let mail = $(this).val();
-        let reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;//判斷格式
+        let reg = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/; //判斷格式
         if (reg.test(mail)) {
             $("#mailValueSignUp").text("格式正確");
             disabledValueMail = 1
             if (disabledValueMail == 1 && disabledValuePwd == 1) {
-                $("#signUp").attr("disabled", false);//格式正確就解開按鈕
+                $("#signUp").attr("disabled", false); //格式正確就解開按鈕
             }
         } else {
             $("#mailValueSignUp").text("mail格式不正確");
@@ -118,7 +124,7 @@ $("#signUp").on('click', function () {
     let dataToServer = {
         mail: $("#mailSignUp").val(),
         password: $("#passwordSignUp").val(),
-        passwordCheck:$("#passwordCheckSignUp").val()
+        passwordCheck: $("#passwordCheckSignUp").val()
     }
     $.ajax({
         type: "POST",
