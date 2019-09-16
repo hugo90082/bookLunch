@@ -1,32 +1,36 @@
 <?php
 require_once 'header.php';
 
-$topic = htmlspecialchars($_POST["topic"]);
-$content = htmlspecialchars($_POST["content"]);
-if (isset($_SESSION['memberID'])) {
-    $memberID = $_SESSION['memberID'];
-}
+$_SESSION['NoValue'] = "";
+if (isset($_SESSION['memberID']) && $_SESSION['memberID'] == 1) {
+    $commodityName = htmlspecialchars($_POST["commodityName"]);
+    $commodityStock = htmlspecialchars($_POST["commodityStock"]);
+    $commodityPrice = htmlspecialchars($_POST["commodityPrice"]);
+    $commodityRemarks = htmlspecialchars($_POST["commodityRemarks"]);
+    $commodityPhoto = $_FILES['commodityPhoto']['tmp_name'];
+    $fp = fopen($commodityPhoto, 'r');
+    $fileContent = fread($fp, filesize($commodityPhoto));
+    $file_uploads = "data:image/jpeg;base64,".base64_encode($fileContent);
+    try {
+        loginRootCheck();
 
-try {
-    $_SESSION['NoValue'] = "";
-    loginCheck();
+        if ($commodityName == "" || $commodityStock == "" || $commodityPrice == "") { //判斷是否空值
+            $_SESSION['NoValue'] = "品名 價格 數量不得為空值";
+            header("location:create.php");
+        } else { //送入資料庫
 
-    if ($topic == "" || $content == "") { //判斷是否空值
+            $sql = "INSERT INTO commodity (CommodityID, name, stock, price, commodityRemarks, photo) VALUES ('', :name, :stock, :price, :commodityRemarks, :photo)";
+            $result = $db->prepare($sql);
+            $result->bindValue(':name', $commodityName);
+            $result->bindValue(':stock', $commodityStock);
+            $result->bindValue(':price', $commodityPrice);
+            $result->bindValue(':commodityRemarks', $commodityRemarks);
+            $result->bindValue(':photo', $file_uploads);
+            $result->execute();
 
-        $_SESSION['NoValue'] = "標題或內容不得為空值";
-        header("location:create.php");
-    } else { //送入資料庫
-
-        // $sql = "INSERT INTO message (ID, memberID, topic,content) VALUES ('', :memberID, :topic, :content)";
-        // $result = $db->prepare($sql);
-        // $result->bindValue(':memberID', $memberID);
-        // $result->bindValue(':topic', $topic);
-        // $result->bindValue(':content', $content);
-
-        // $result->execute();
-
-        header("location:index.php");
+            header("location:index.php");
+        }
+    } catch (PDOException $err) {
+        echo "Error: " . $err->getMessage();
     }
-} catch (PDOException $err) {
-    echo "Error: " . $err->getMessage();
 }

@@ -144,3 +144,25 @@ $("#signUp").on('click', function () {
         }
     })
 })
+
+$('.deleteButton').on('click', function(){
+    let dataToServer = {
+        CommodityID: $(this).prev().val()
+    }
+    $.ajax({
+        type: "POST",
+        url: "./deleteCommodity.php",
+        data: dataToServer,
+        success: function (e) {
+            if (e) {
+                $('#dataRow' + dataToServer.CommodityID).remove()
+                alert('刪除成功');
+            } else {
+                alert('刪除錯誤');
+            }
+        },
+        error: function () {
+            alert('錯誤');
+        }
+    })
+})

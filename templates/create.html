@@ -2,7 +2,7 @@
 
 <body>
     <div class="container">
-        <form method="post" action="" class="form-horizontal">
+        <form method="post" action="insert.php" class="form-horizontal" enctype="multipart/form-data">
             <fieldset>
 
                 <!-- Form Name pattern="" insert.php-->
@@ -12,7 +12,7 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="commodityName">品名：</label>
+                    <label class="col-md-4 control-label" for="commodityName">(必填)品名：</label>
                     <div class="col-md-4">
                         <input id="commodityName" name="commodityName" type="text" placeholder="" class="form-control input-md"
                             maxlength="20">
@@ -24,12 +24,12 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="commodityStock">存貨數量：</label>
                     <div class="col-md-1">
-                        <input type="number" class="form-control stockPriceInput" id="commodityStock" min="0" maxlength="5" value="0">
+                        <input type="number" class="form-control stockPriceInput" id="commodityStock" name="commodityStock" min="0" maxlength="5" value="0">
                     </div>
                     
                         <label class="control-label col-md-1" for="commodityPrice">價格：</label>
                     <div class="col-md-1">
-                        <input type="number" class="form-control stockPriceInput" id="commodityPrice" min="0" maxlength="5" value="0">
+                        <input type="number" class="form-control stockPriceInput" id="commodityPrice" name="commodityPrice" min="0" maxlength="5" value="30">
                     </div>
                     
 
@@ -45,9 +45,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="content">便當照片：</label>
+                    <label class="col-md-4 control-label" for="commodityPhoto">便當照片：</label>
                     <div class="col-md-4">
-                        <input type='file' id="file" name="file" />
+                        <input type='file' id="commodityPhoto" name="commodityPhoto" />
                     </div>
                 </div>
                 <h4>
@@ -55,9 +55,9 @@
                 </h4>
                 <!-- Button (Double) -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="okOrCancel"></label>
+                    <label class="col-md-4 control-label" for="ok"></label>
                     <div class="col-md-8">
-                        <button type="submit" id="ok" name="ok" class="btn btn-success" value="OK">新增</button>
+                        <button type="submit" id="ok" name="ok" class="btn btn-success">新增</button>
                         <a href="/index.php" class="btn btn-danger">取消</a>
 
                     </div>
@@ -68,7 +68,8 @@
 
 
     </div>
-
+    {{include file="src.html"}}
+    <script src="http://localhost/bookLunch/templates/create.js" defer></script>
 </body>
 
 </html>

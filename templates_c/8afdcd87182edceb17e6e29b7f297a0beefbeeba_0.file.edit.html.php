@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-16 08:52:04
-  from 'C:\xampp\htdocs\bookLunch\templates\create.html' */
+/* Smarty version 3.1.34-dev-7, created on 2019-09-16 11:45:24
+  from 'C:\xampp\htdocs\bookLunch\templates\edit.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d7f3114764ea0_78601104',
+  'unifunc' => 'content_5d7f59b4e1c8e7_14383894',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '85df7804a6ee408120698486a6664e26da2b89fd' => 
+    '8afdcd87182edceb17e6e29b7f297a0beefbeeba' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\create.html',
-      1 => 1568616721,
+      0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\edit.html',
+      1 => 1568622599,
       2 => 'file',
     ),
   ),
@@ -22,18 +22,18 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:src.html' => 1,
   ),
 ),false)) {
-function content_5d7f3114764ea0_78601104 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d7f59b4e1c8e7_14383894 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
 <body>
     <div class="container">
-        <form method="post" action="insert.php" class="form-horizontal" enctype="multipart/form-data">
+        <form method="post" action="update.php" class="form-horizontal" enctype="multipart/form-data">
             <fieldset>
 
-                <!-- Form Name pattern="" insert.php-->
+                
                 <legend>
-                    <h2>建立新便當</h2>
+                    <h2>調整便當內容</h2>
                 </legend>
 
                 <!-- Text input-->

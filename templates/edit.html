@@ -1,39 +1,13 @@
-<?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-16 08:52:04
-  from 'C:\xampp\htdocs\bookLunch\templates\create.html' */
-
-/* @var Smarty_Internal_Template $_smarty_tpl */
-if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
-  'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d7f3114764ea0_78601104',
-  'has_nocache_code' => false,
-  'file_dependency' => 
-  array (
-    '85df7804a6ee408120698486a6664e26da2b89fd' => 
-    array (
-      0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\create.html',
-      1 => 1568616721,
-      2 => 'file',
-    ),
-  ),
-  'includes' => 
-  array (
-    'file:header.html' => 1,
-    'file:src.html' => 1,
-  ),
-),false)) {
-function content_5d7f3114764ea0_78601104 (Smarty_Internal_Template $_smarty_tpl) {
-$_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
+{{include file="header.html"}}
 
 <body>
     <div class="container">
-        <form method="post" action="insert.php" class="form-horizontal" enctype="multipart/form-data">
+        <form method="post" action="update.php" class="form-horizontal" enctype="multipart/form-data">
             <fieldset>
 
-                <!-- Form Name pattern="" insert.php-->
+                
                 <legend>
-                    <h2>建立新便當</h2>
+                    <h2>調整便當內容</h2>
                 </legend>
 
                 <!-- Text input-->
@@ -77,8 +51,7 @@ $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_s
                     </div>
                 </div>
                 <h4>
-                    <p class='text-center text-danger'><?php echo $_smarty_tpl->tpl_vars['NoValue']->value;?>
-</p>
+                    <p class='text-center text-danger'>{{$NoValue}}</p>
                 </h4>
                 <!-- Button (Double) -->
                 <div class="form-group">
@@ -95,12 +68,8 @@ $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_s
 
 
     </div>
-    <?php $_smarty_tpl->_subTemplateRender("file:src.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
-?>
-    <?php echo '<script'; ?>
- src="http://localhost/bookLunch/templates/create.js" defer><?php echo '</script'; ?>
->
+    {{include file="src.html"}}
+    <script src="http://localhost/bookLunch/templates/create.js" defer></script>
 </body>
 
-</html><?php }
-}
+</html>
