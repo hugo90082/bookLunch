@@ -16,9 +16,10 @@ if ($rowCount == 0) {
     $rowCount = $result->rowCount();
 }
 
-//$NoValue = $_SESSION['NoValue'];
+$NoValue = isset($_SESSION['NoValue']) ? $_SESSION['NoValue'] : "<br>";
 
-
+$smarty->assign('NoValue', $NoValue);
+unset($_SESSION['NoValue']);
 $smarty->assign('CommodityID', $CommodityID);
 $smarty->assign('row', $row);
 $smarty->display('edit.html');

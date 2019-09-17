@@ -166,3 +166,33 @@ $('.deleteButton').on('click', function(){
         }
     })
 })
+
+$('#updatePasswordMemberManagement').on('click', function(){
+    let dataToServer = {
+        passwordMemberManagement: $("#passwordMemberManagement").val(),
+        newPasswordMemberManagement: $("#newPasswordMemberManagement").val(),
+        newCheckPasswordMemberManagement: $("#newCheckPasswordMemberManagement").val()
+    }
+    $.ajax({
+        type: "POST",
+        url: "./memberUpdate.php",
+        data: dataToServer,
+        success: function (e) {
+            console.log(e)
+            if (e==="3") {
+                alert('不得為空值');
+            }else if(e==="2"){
+                alert('兩次密碼不相同');
+            }else if(e==true){
+                alert('變更成功');
+            }else if(e==="4"){
+                alert('密碼輸入錯誤');
+            } else {
+                alert('變更錯誤');
+            }
+        },
+        error: function () {
+            alert('錯誤');
+        }
+    })
+})

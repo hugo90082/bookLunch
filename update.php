@@ -1,32 +1,46 @@
 <?php
 require_once 'header.php';
-$id = htmlspecialchars($_POST['msID']);
-$topic = htmlspecialchars($_POST["topic"]);
-$content = htmlspecialchars($_POST["content"]);
-$memberID = htmlspecialchars($_POST["memberID"]);
 
+$_SESSION['NoValue'] = "";
 try {
-    loginCheck();
+    loginRootCheck();
+    $CommodityID = htmlspecialchars($_GET["CommodityID"]);
+    $commodityName = htmlspecialchars($_POST["commodityName"]);
+    $commodityStock = htmlspecialchars($_POST["commodityStock"]);
+    $commodityPrice = htmlspecialchars($_POST["commodityPrice"]);
+    $commodityRemarks = htmlspecialchars($_POST["commodityRemarks"]);
+    $commodityPhoto = $_FILES['commodityPhoto']['tmp_name'];
+    $checkPhoto = "";
+    if ($commodityPhoto != "") {
+        $fp = fopen($commodityPhoto, 'r');
+        $fileContent = fread($fp, filesize($commodityPhoto));
+        $file_uploads = "data:image/jpeg;base64," . base64_encode($fileContent);
+        $checkPhoto = ", photo = :photo";
+    }
 
-   if ($topic == "" || $content == "") { //判斷是否空值
 
-        $_SESSION['NoValue'] = "標題或內容不得為空值";
-        header("location:edit.php?ID=$id");
-    } else if ($memberID != $_SESSION['memberID']) {
-
-        echo "<script> alert('找無對應文章 將導回首頁'); window.location.replace('index.php');</script>";
+    if ($commodityName == "" || $commodityStock == "" || $commodityPrice == "") { //判斷是否空值
+        $_SESSION['NoValue'] = "品名 價格 數量不得為空值";
+        header("location:edit.php?CommodityID=$CommodityID");
     } else { //送入資料庫
-        $sql = "UPDATE message SET topic=:topic, content = :content where ID = :ID and memberID = :memberID";
+        $sql = "UPDATE commodity SET name=:name, stock = :stock, price = :price, commodityRemarks = :commodityRemarks $checkPhoto where CommodityID = :CommodityID";
         $result = $db->prepare($sql);
-        $result->bindValue(':ID', $id);
-        $result->bindValue(':memberID', $memberID);
-        $result->bindValue(':topic', $topic);
-        $result->bindValue(':content', $content);
+        $result->bindValue(':CommodityID', $CommodityID);
+        $result->bindValue(':name', $commodityName);
+        $result->bindValue(':stock', $commodityStock);
+        $result->bindValue(':price', $commodityPrice);
+        $result->bindValue(':commodityRemarks', $commodityRemarks);
+        
+        if ($commodityPhoto != "") {
+            $result->bindValue(':photo', $file_uploads);
+        }
+
+
+
         $result->execute();
 
         header("location:index.php");
     }
 } catch (PDOException $err) {
     echo "Error: " . $err->getMessage();
-    exit();
 }
