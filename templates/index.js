@@ -205,7 +205,8 @@ $('.buyButton').on('click', function(){
         CommodityID: $(this).prev().val(),
         amount:$('#amount'+CommodityID).val(),
         transactionRemarks:$('#transactionRemarks'+CommodityID).val(),
-        total:price*amount
+        total:price*amount,
+        stock:$(this).prev().prev().prev().val(),
     }
     $.ajax({
         type: "POST",
@@ -214,10 +215,11 @@ $('.buyButton').on('click', function(){
         success: function (e) {
             if (e==="1") {
                 alert('成功購買');
+                window.location.replace('index.php');
             }else if(e==="2"){
                 alert('數量不得小於0');
             } else {
-                alert('購買失敗');
+                alert(e);
             }
         },
         error: function () {

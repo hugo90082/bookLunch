@@ -222,6 +222,7 @@
                             id="transactionRemarks{{$data.CommodityID}}">
                     </div>
                     <div class="form-group col-md-1">
+                        <input type="hidden" value="{{$data.stock}}">
                         <input type="hidden" value="{{$data.price}}">
                         <input type="hidden" value="{{$data.CommodityID}}">
                         <button type="button" class="btn btn-success buyButton" id="buyButton{{$data.CommodityID}}">
