@@ -14,9 +14,6 @@ try {
     $file_uploads = "data:image/jpeg;base64," . base64_encode($fileContent);
 
 
-
-
-
     if ($commodityName == "" || $commodityStock == "" || $commodityPrice == "") { //判斷是否空值
         $_SESSION['NoValue'] = "品名 價格 數量不得為空值";
         header("location:create.php");
@@ -34,5 +31,6 @@ try {
         header("location:index.php");
     }
 } catch (PDOException $err) {
+
     echo "Error: " . $err->getMessage();
 }

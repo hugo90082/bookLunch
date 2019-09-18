@@ -6,8 +6,8 @@ $("#commodityStock").keyup(function () {
     }
 })
 $("#commodityPrice").keyup(function () {
-    if ($(this).val() >= 9999) {
-        $(this).val(9999);
+    if ($(this).val() >= 999) {
+        $(this).val(999);
     }else if($(this).val() <= 30){
         $(this).val(30);
     }

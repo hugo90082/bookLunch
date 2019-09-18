@@ -9,23 +9,22 @@ try {
     loginPageCheck();
     if ($mail == "" || $password == "" || $passwordCheck == "") { //判斷是否空值
 
-        echo "0";
+        echo "2";
     } else if ($password != $passwordCheck) {
 
-        echo "1";
+        echo "3";
     } else { //送入資料庫
 
         $sql = "INSERT INTO member (memberID, mail,PWD) VALUES ('', :mail, :passwordCheck)";
         $result = $db->prepare($sql);
         $result->bindValue(':mail', $mail);
         $result->bindValue(':passwordCheck', MD5($passwordCheck));
-
-        echo $result->execute();
-        
+        $result->execute();
+        echo "1";
     }
 } catch (PDOException $err) {
     //echo "Error: " . 
     $err->getMessage();
-    echo false;
+    echo "0";
     exit();
 }

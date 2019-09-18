@@ -38,7 +38,7 @@ $("#login").on('click', function () {
         url: "./login.php",
         data: dataToServer,
         success: function (e) {
-            if (e) {
+            if (e==="1") {
                 alert('登入成功');
                 window.location.replace('index.php');
             } else {
@@ -55,7 +55,7 @@ $("#logout").on('click', function () {
         type: "POST",
         url: "./logout.php",
         success: function (e) {
-            if (e) {
+            if (e==="1") {
                 alert('登出成功');
                 window.location.replace('index.php');
             } else {
@@ -131,7 +131,7 @@ $("#signUp").on('click', function () {
         url: "./signUp.php",
         data: dataToServer,
         success: function (e) {
-            if (e) {
+            if (e==="1") {
                 alert('註冊成功');
                 $('#signUpModal').modal('hide');
                 $('#loginModal').modal('show');
@@ -154,7 +154,7 @@ $('.deleteButton').on('click', function(){
         url: "./deleteCommodity.php",
         data: dataToServer,
         success: function (e) {
-            if (e) {
+            if (e==="1") {
                 $('#dataRow' + dataToServer.CommodityID).remove()
                 alert('刪除成功');
             } else {
@@ -178,17 +178,46 @@ $('#updatePasswordMemberManagement').on('click', function(){
         url: "./memberUpdate.php",
         data: dataToServer,
         success: function (e) {
-            console.log(e)
             if (e==="3") {
                 alert('不得為空值');
             }else if(e==="2"){
                 alert('兩次密碼不相同');
-            }else if(e==true){
+            }else if(e==="1"){
                 alert('變更成功');
             }else if(e==="4"){
                 alert('密碼輸入錯誤');
             } else {
                 alert('變更錯誤');
+            }
+        },
+        error: function () {
+            alert('錯誤');
+        }
+    })
+})
+
+$('.buyButton').on('click', function(){
+    CommodityID = $(this).prev().val();
+    let amount=$('#amount'+CommodityID).val()
+    let price = $(this).prev().prev().val()
+    let dataToServer = {
+        memberID: $("#memberID").val(),
+        CommodityID: $(this).prev().val(),
+        amount:$('#amount'+CommodityID).val(),
+        transactionRemarks:$('#transactionRemarks'+CommodityID).val(),
+        total:price*amount
+    }
+    $.ajax({
+        type: "POST",
+        url: "./transactionInsert.php",
+        data: dataToServer,
+        success: function (e) {
+            if (e==="1") {
+                alert('成功購買');
+            }else if(e==="2"){
+                alert('數量不得小於0');
+            } else {
+                alert('購買失敗');
             }
         },
         error: function () {

@@ -7,8 +7,8 @@ try {
     $newPasswordMemberManagement = htmlspecialchars($_POST["newPasswordMemberManagement"]);
     $newCheckPasswordMemberManagement = htmlspecialchars($_POST["newCheckPasswordMemberManagement"]);
     $memberID = $_SESSION['memberID'];
-
-    if ($passwordMemberManagement == "" || $newPasswordMemberManagement == "" || $newCheckPasswordMemberManagement == "") { //判斷是否空值
+// $passwordMemberManagement = 1
+    if ($passwordMemberManagement === "" || $newPasswordMemberManagement === "" || $newCheckPasswordMemberManagement === "") { ## 判斷是否空值
         echo "3";
     } else if ($newPasswordMemberManagement != $newCheckPasswordMemberManagement) {
         echo "2";
@@ -21,15 +21,14 @@ try {
         $result->bindValue(':newCheckPasswordMemberManagement', MD5($newCheckPasswordMemberManagement));
         $result->execute();
         $rowCount = $result->rowCount();
-        if($rowCount==1){
-            echo true;
-        }else{
+        if ($rowCount === 1) {
+            echo "1";
+        } else {
             echo "4";
         }
-
     }
 } catch (PDOException $err) {
     $err->getMessage();
-    echo false;
+    echo "0";
     exit();
 }

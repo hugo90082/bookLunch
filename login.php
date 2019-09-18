@@ -20,10 +20,10 @@ try {
         session_unset();
         $_SESSION['memberMail'] = $row["mail"];
         $_SESSION['memberID'] = $row["memberID"];
-        echo true;
+        echo "1";
     } else {
         $_SESSION['mail'] = $mail;
-        echo false;
+        echo "0";
     }
 } catch (PDOException $err) {
     echo "Error: " . $err->getMessage();

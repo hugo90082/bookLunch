@@ -1,7 +1,7 @@
 <?php
 require_once 'header.php';
 if (session_destroy()) {
-    echo true;
+    echo "1";
 } else {
-    echo false;
+    echo "0";
 }

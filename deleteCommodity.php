@@ -9,7 +9,8 @@ try {
     $result = $db->prepare($sql);
     $result->bindValue(':CommodityID', $CommodityID);
     $result->execute();
-    echo $result->execute();
+
+    echo "1";
 } catch (PDOException $err) {
     echo "Error: " . $err->getMessage();
     exit();
