@@ -101,7 +101,7 @@
             <div class="col-md-8">
                 <h3 class="text-center text-primary">
                     歡迎！{{if isset($smarty.session.memberID) && ($smarty.session.memberID === '1')}}{{"管理員 "}}{{else}}{{""}}{{/if}}
-                    {{if $memberMail}}{{$memberMail}}{{else}}{{"訪客"}}{{/if}}，便當訂起來
+                    {{if $memberMail}}{{$memberMail}}{{else}}{{"訪客"}}{{/if}}，便當訂起來！
                 </h3>
                 <input type="hidden" id="memberID" name="memberID" value="{{$smarty.session.memberID}}">
 
@@ -160,22 +160,75 @@
                 </div>
             </div>
             {{/if}}
-            {{if isset($smarty.session.memberID) && ($smarty.session.memberID !== '1')}}
+            {{if isset($smarty.session.memberID)}}
 
             <div class="col-md-1">
-                <button type="button" class="btn btn-warning">
+                <button id="transaction" type="button" class="btn btn-warning" data-toggle="modal"
+                    data-target="#transactionModal">
                     訂單管理
                 </button>
+                <!-- Modal -->
+                <div class="modal fade in active" id="transactionModal" role="dialog">
+                    <div class="modal-dialog modal-lg">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">訂單管理</h4>
+                            </div>
+                            <div class="modal-body" id="modalTransaction">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <h3>便當名稱</h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h3>訂購數量</h3>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h3>金額</h3>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h3><span class="glyphicon glyphicon-remove pull-right"></span></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{foreach item=dataTransaction from=$rowTransaction}}
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <h4 id="nameTransaction">{{$dataTransaction.name}}</h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4 id="amountTransaction">{{$dataTransaction.amount}}</h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4 id="totalTransaction">{{$dataTransaction.total}}</h4>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <h4><button type="button"
+                                                    class="btn btn-danger btn-xs pull-right deleteButtonTransaction">
+                                                    <span class="glyphicon glyphicon-remove"></span>刪除
+                                                </button></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/foreach}}
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="col-md-1">
-            </div>
+
             {{/if}}
             {{if isset($smarty.session.memberID) && ($smarty.session.memberID === '1')}}
-            <div class="col-md-1">
-                <button type="button" class="btn btn-warning">
-                    訂單管理
-                </button>
-            </div>
+
             <div class="col-md-1">
                 <a href="./create.php" class="btn btn-primary">
                     新增品項
@@ -197,21 +250,25 @@
                     <div class="col-md-12">
                         <h3>
                             {{$data.name}}
+                            <input type="hidden" id="nameHidden{{$data.CommodityID}}" value="{{$data.name}}">
                             <h4>
-                                <div class="pull-right">剩餘：{{$data.stock}}個</div>
+                                <div class="pull-right"><span id="stock{{$data.CommodityID}}">剩餘：{{$data.stock}}個</span>
+                                </div>
                             </h4>
                         </h3>
                         <h5>
-                            {{$data.commodityRemarks}}
+                            {{if $data.commodityRemarks}}{{$data.commodityRemarks}}{{else}}{{"<br>"}}{{/if}}
                         </h5>
                         <h4 class="pull-right">售價：{{$data.price}}元</h4>
                     </div>
                 </div>
-                {{if isset($smarty.session.memberID)}}
+                {{if isset($smarty.session.memberID) && ($data.stock > 0 )}}
                 <div class="form-inline">
                     <div class="form-group col-md-4">
-                        數量：<input type="number" class="form-control amount" id="amount{{$data.CommodityID}}" name="amount{{$data.CommodityID}}" min="0"
-                            max="50" maxlength="1" value="0">個
+
+                        數量：<input type="number" class="form-control amount" id="amount{{$data.CommodityID}}"
+                            name="amount{{$data.CommodityID}}" min="0"
+                            max='{{if $data.stock}}{{$data.stock}}{{else}}{{50}}{{/if}}' maxlength="1" value="0">個
 
                         <p class="text-danger">限制最大數量50個</p>
 
@@ -222,13 +279,18 @@
                             id="transactionRemarks{{$data.CommodityID}}">
                     </div>
                     <div class="form-group col-md-1">
-                        <input type="hidden" value="{{$data.stock}}">
+                        <input type="hidden" id="stockHidden{{$data.CommodityID}}" value="{{$data.stock}}">
                         <input type="hidden" value="{{$data.price}}">
                         <input type="hidden" value="{{$data.CommodityID}}">
                         <button type="button" class="btn btn-success buyButton" id="buyButton{{$data.CommodityID}}">
                             購買
                         </button>
                     </div>
+                </div>
+                {{/if}}
+                {{if isset($smarty.session.memberID) && ($data.stock <= 0 )}}
+                <div class="form-inline">
+                    <p class="bg-danger text-center">便當均已售完</p>
                 </div>
                 {{/if}}
             </div>

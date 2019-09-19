@@ -5,7 +5,7 @@ $CommodityID = $_POST["CommodityID"];
 try {
     loginRootCheck();
 
-    $sql = "DELETE FROM Commodity where CommodityID = :CommodityID;";
+    $sql = "UPDATE Commodity SET softDelete = 0 where CommodityID = :CommodityID;";
     $result = $db->prepare($sql);
     $result->bindValue(':CommodityID', $CommodityID);
     $result->execute();

@@ -1,4 +1,5 @@
 $(".amount").keyup(function () {
+    $(this).val($(this).attr("max"));
     if ($(this).val() >= 50) {
         $(this).val(50);
     }
@@ -38,7 +39,7 @@ $("#login").on('click', function () {
         url: "./login.php",
         data: dataToServer,
         success: function (e) {
-            if (e==="1") {
+            if (e === "1") {
                 alert('登入成功');
                 window.location.replace('index.php');
             } else {
@@ -55,7 +56,7 @@ $("#logout").on('click', function () {
         type: "POST",
         url: "./logout.php",
         success: function (e) {
-            if (e==="1") {
+            if (e === "1") {
                 alert('登出成功');
                 window.location.replace('index.php');
             } else {
@@ -131,7 +132,7 @@ $("#signUp").on('click', function () {
         url: "./signUp.php",
         data: dataToServer,
         success: function (e) {
-            if (e==="1") {
+            if (e === "1") {
                 alert('註冊成功');
                 $('#signUpModal').modal('hide');
                 $('#loginModal').modal('show');
@@ -145,7 +146,7 @@ $("#signUp").on('click', function () {
     })
 })
 
-$('.deleteButton').on('click', function(){
+$('.deleteButton').on('click', function () {
     let dataToServer = {
         CommodityID: $(this).prev().val()
     }
@@ -154,7 +155,7 @@ $('.deleteButton').on('click', function(){
         url: "./deleteCommodity.php",
         data: dataToServer,
         success: function (e) {
-            if (e==="1") {
+            if (e === "1") {
                 $('#dataRow' + dataToServer.CommodityID).remove()
                 alert('刪除成功');
             } else {
@@ -167,7 +168,7 @@ $('.deleteButton').on('click', function(){
     })
 })
 
-$('#updatePasswordMemberManagement').on('click', function(){
+$('#updatePasswordMemberManagement').on('click', function () {
     let dataToServer = {
         passwordMemberManagement: $("#passwordMemberManagement").val(),
         newPasswordMemberManagement: $("#newPasswordMemberManagement").val(),
@@ -178,13 +179,13 @@ $('#updatePasswordMemberManagement').on('click', function(){
         url: "./memberUpdate.php",
         data: dataToServer,
         success: function (e) {
-            if (e==="3") {
+            if (e === "3") {
                 alert('不得為空值');
-            }else if(e==="2"){
+            } else if (e === "2") {
                 alert('兩次密碼不相同');
-            }else if(e==="1"){
+            } else if (e === "1") {
                 alert('變更成功');
-            }else if(e==="4"){
+            } else if (e === "4") {
                 alert('密碼輸入錯誤');
             } else {
                 alert('變更錯誤');
@@ -196,30 +197,64 @@ $('#updatePasswordMemberManagement').on('click', function(){
     })
 })
 
-$('.buyButton').on('click', function(){
+$('.buyButton').on('click', function () {
     CommodityID = $(this).prev().val();
-    let amount=$('#amount'+CommodityID).val()
+    let amount = $('#amount' + CommodityID).val()
     let price = $(this).prev().prev().val()
     let dataToServer = {
         memberID: $("#memberID").val(),
         CommodityID: $(this).prev().val(),
-        amount:$('#amount'+CommodityID).val(),
-        transactionRemarks:$('#transactionRemarks'+CommodityID).val(),
-        total:price*amount,
-        stock:$(this).prev().prev().prev().val(),
+        amount: $('#amount' + CommodityID).val(),
+        transactionRemarks: $('#transactionRemarks' + CommodityID).val(),
+        total: price * amount,
+        stock: $(this).prev().prev().prev().val(),
     }
     $.ajax({
         type: "POST",
         url: "./transactionInsert.php",
         data: dataToServer,
         success: function (e) {
-            if (e==="1") {
+            if (e === "1") {
+                let subTotal = dataToServer.stock - dataToServer.amount
                 alert('成功購買');
-                window.location.replace('index.php');
-            }else if(e==="2"){
-                alert('數量不得小於0');
-            } else {
-                alert(e);
+                $("#stock" + CommodityID).text("剩餘：" + subTotal + "個");
+                $("#stockHidden" + CommodityID).val(subTotal);
+                if (subTotal <= 0) {
+                    $("#buyButton" + CommodityID).attr("disabled", true);
+                    $("#transactionRemarks" + CommodityID).attr("disabled", true);
+                    $("#amount" + CommodityID).attr("disabled", true);
+                }
+
+                        let str = `<div class='container-fluid'>
+                <div class='row'>
+                    <div class='col-md-5'>
+                        <h4 id='nameTransaction'>${$("#nameHidden" + CommodityID).val()}</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 id="amountTransaction">${amount}</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 id="totalTransaction">${dataToServer.total}</h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h4><button type="button"
+                                class="btn btn-danger btn-xs pull-right deleteButtonTransaction">
+                                <span class="glyphicon glyphicon-remove"></span>刪除
+                            </button></h4>
+                    </div>
+                </div>
+            </div>`
+                        $("#modalTransaction").append(str);
+                    
+                } else if (e === "2") {
+                    alert('數量不得等於0');
+                } else if (e === "3") {
+                    alert('存貨不足');
+                    $("#buyButton" + CommodityID).attr("disabled", true);
+                    $("#transactionRemarks" + CommodityID).attr("disabled", true);
+                    $("#amount" + CommodityID).attr("disabled", true);
+                } else {
+                alert("購買錯誤");
             }
         },
         error: function () {
