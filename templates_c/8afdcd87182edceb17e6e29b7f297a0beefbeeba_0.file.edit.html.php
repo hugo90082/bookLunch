@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-19 11:46:17
+/* Smarty version 3.1.34-dev-7, created on 2019-09-20 08:31:06
   from 'C:\xampp\htdocs\bookLunch\templates\edit.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d834e6916e5e0_27746611',
+  'unifunc' => 'content_5d84722a93da21_78356569',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8afdcd87182edceb17e6e29b7f297a0beefbeeba' => 
     array (
       0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\edit.html',
-      1 => 1568692604,
+      1 => 1568960421,
       2 => 'file',
     ),
   ),
@@ -22,13 +22,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:src.html' => 1,
   ),
 ),false)) {
-function content_5d834e6916e5e0_27746611 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d84722a93da21_78356569 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
 <body>
     <div class="container">
-        <form method="post" action="update.php?CommodityID=<?php echo $_smarty_tpl->tpl_vars['row']->value['CommodityID'];?>
+        <form method="post" action="update.php?commodityID=<?php echo $_smarty_tpl->tpl_vars['row']->value['commodityID'];?>
 " class="form-horizontal" enctype="multipart/form-data">
             <fieldset>
 

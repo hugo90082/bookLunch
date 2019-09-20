@@ -1,12 +1,12 @@
 <?php
 require_once 'header.php';
 
-$CommodityID = $_GET["CommodityID"];
+$commodityID = $_GET["commodityID"];
 loginRootCheck();
 
 
-$result = $db->prepare("select * from commodity where CommodityID = :CommodityID");
-$result->bindValue(':CommodityID', $CommodityID, PDO::PARAM_STR);
+$result = $db->prepare("select * from commodity where commodityID = :commodityID");
+$result->bindValue(':commodityID', $commodityID, PDO::PARAM_STR);
 $result->execute();
 $row = $result->fetch();
 $rowCount = $result->rowCount();
@@ -21,6 +21,6 @@ $NoValue = isset($_SESSION['NoValue']) ? $_SESSION['NoValue'] : "<br>";
 
 $smarty->assign('NoValue', $NoValue);
 unset($_SESSION['NoValue']);
-$smarty->assign('CommodityID', $CommodityID);
+$smarty->assign('commodityID', $commodityID);
 $smarty->assign('row', $row);
 $smarty->display('edit.html');

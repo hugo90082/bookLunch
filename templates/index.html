@@ -7,7 +7,7 @@
             <div class="col-md-1">
                 <button id="loginStart" type="button" class="btn btn-md btn-danger" data-toggle="modal"
                     data-target="#loginModal">
-                    會員登入
+                    登入
                 </button>
 
                 <!-- Modal -->
@@ -51,13 +51,13 @@
             {{if isset($smarty.session.memberID)}}
             <div class="col-md-1">
                 <button id="logout" type="button" class="btn btn-md btn-danger">
-                    會員登出
+                    登出
                 </button>
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn btn-success btn-md" data-toggle="modal"
                     data-target="#memberManagementModal">
-                    會員管理
+                    密碼變更
                 </button>
                 <div class="modal fade in active" id="memberManagementModal" role="dialog">
                     <div class="modal-dialog modal-sm">
@@ -107,8 +107,7 @@
 
             </div>
             {{if !isset($smarty.session.memberID)}}
-            <div class="col-md-1">
-            </div>
+
             <div class="col-md-1">
                 <button id="signUpStart" type="button" class="btn btn-success btn-md" data-toggle="modal"
                     data-target="#signUpModal">
@@ -159,6 +158,8 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-1">
+            </div>
             {{/if}}
             {{if isset($smarty.session.memberID)}}
 
@@ -180,37 +181,41 @@
                             <div class="modal-body" id="modalTransaction">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <h3>便當名稱</h3>
+                                        <div class="col-md-3">
+                                            <h4>便當名稱</h4>
                                         </div>
                                         <div class="col-md-3">
-                                            <h3>訂購數量</h3>
+                                            <h4>備註</h4>
                                         </div>
-                                        <div class="col-md-3">
-                                            <h3>金額</h3>
+                                        <div class="col-md-2">
+                                            <h4>訂購數量</h4>
                                         </div>
                                         <div class="col-md-1">
-                                            <h3><span class="glyphicon glyphicon-remove pull-right"></span></h3>
+                                            <h4>金額</h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>訂購時間</h4>
                                         </div>
                                     </div>
                                 </div>
                                 {{foreach item=dataTransaction from=$rowTransaction}}
-                                <div class="container-fluid">
+                                <div class="container-fluid" id="dataTransactionDiv{{$dataTransaction.transactionID}}">
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <h4 id="nameTransaction">{{$dataTransaction.name}}</h4>
+                                        <div class="col-md-3">
+                                            <h5 id="nameTransaction">{{$dataTransaction.name}}</h5>
                                         </div>
                                         <div class="col-md-3">
-                                            <h4 id="amountTransaction">{{$dataTransaction.amount}}</h4>
+                                            <h5 id="transactionRemarksTransaction">
+                                                {{$dataTransaction.transactionRemarks}}</h5>
                                         </div>
-                                        <div class="col-md-3">
-                                            <h4 id="totalTransaction">{{$dataTransaction.total}}</h4>
+                                        <div class="col-md-2">
+                                            <h5 id="amountTransaction">{{$dataTransaction.amount}}</h5>
                                         </div>
                                         <div class="col-md-1">
-                                            <h4><button type="button"
-                                                    class="btn btn-danger btn-xs pull-right deleteButtonTransaction">
-                                                    <span class="glyphicon glyphicon-remove"></span>刪除
-                                                </button></h4>
+                                            <h5 id="totalTransaction">{{$dataTransaction.total}}</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5 id="totalTransaction">{{$dataTransaction.time}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +244,7 @@
         </div>
         {{foreach item=data from=$row}}
 
-        <div class="row paddingTop" id="dataRow{{$data.CommodityID}}">
+        <div class="row paddingTop" id="dataRow{{$data.commodityID}}">
             <div class="col-md-3 paddingTop">
 
                 <img alt="Bootstrap Image Preview" src="{{$data.photo}}" class="rounded" height="160" width="270"
@@ -250,9 +255,9 @@
                     <div class="col-md-12">
                         <h3>
                             {{$data.name}}
-                            <input type="hidden" id="nameHidden{{$data.CommodityID}}" value="{{$data.name}}">
+                            <input type="hidden" id="nameHidden{{$data.commodityID}}" value="{{$data.name}}">
                             <h4>
-                                <div class="pull-right"><span id="stock{{$data.CommodityID}}">剩餘：{{$data.stock}}個</span>
+                                <div class="pull-right"><span id="stock{{$data.commodityID}}">剩餘：{{$data.stock}}個</span>
                                 </div>
                             </h4>
                         </h3>
@@ -266,8 +271,8 @@
                 <div class="form-inline">
                     <div class="form-group col-md-4">
 
-                        數量：<input type="number" class="form-control amount" id="amount{{$data.CommodityID}}"
-                            name="amount{{$data.CommodityID}}" min="0"
+                        數量：<input type="number" class="form-control amount" id="amount{{$data.commodityID}}"
+                            name="amount{{$data.commodityID}}" min="0"
                             max='{{if $data.stock}}{{$data.stock}}{{else}}{{50}}{{/if}}' maxlength="1" value="0">個
 
                         <p class="text-danger">限制最大數量50個</p>
@@ -275,14 +280,14 @@
                     </div>
                     <div class="form-group col-md-7">
                         備註：
-                        <input maxlength="20" size="20" class="form-control"
-                            id="transactionRemarks{{$data.CommodityID}}">
+                        <input id="transactionRemarks{{$data.commodityID}}" maxlength="20" size="20"
+                            class="form-control">
                     </div>
                     <div class="form-group col-md-1">
-                        <input type="hidden" id="stockHidden{{$data.CommodityID}}" value="{{$data.stock}}">
+                        <input type="hidden" id="stockHidden{{$data.commodityID}}" value="{{$data.stock}}">
                         <input type="hidden" value="{{$data.price}}">
-                        <input type="hidden" value="{{$data.CommodityID}}">
-                        <button type="button" class="btn btn-success buyButton" id="buyButton{{$data.CommodityID}}">
+                        <input type="hidden" value="{{$data.commodityID}}">
+                        <button type="button" class="btn btn-success buyButton" id="buyButton{{$data.commodityID}}">
                             購買
                         </button>
                     </div>
@@ -298,12 +303,12 @@
 
             <div class="col-md-1">
 
-                <a href="edit.php?CommodityID={{$data.CommodityID}}" class="btn btn-xs btn-info pull-right editButton">
+                <a href="edit.php?commodityID={{$data.commodityID}}" class="btn btn-xs btn-info pull-right editButton">
                     <span class="glyphicon glyphicon-pencil"></span>修改
                 </a>
 
 
-                <input type="hidden" value="{{$data.CommodityID}}">
+                <input type="hidden" value="{{$data.commodityID}}">
                 <button type="button" class="btn btn-danger btn-xs pull-right deleteButton">
                     <span class="glyphicon glyphicon-remove"></span>刪除
                 </button>

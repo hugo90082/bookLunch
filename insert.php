@@ -9,7 +9,8 @@ try {
     $commodityPrice = htmlspecialchars($_POST["commodityPrice"]);
     $commodityRemarks = htmlspecialchars($_POST["commodityRemarks"]);
     $commodityPhoto = $_FILES['commodityPhoto']['tmp_name'];
-    $photoType = $_FILES['commodityPhoto']['type'];
+    $photoType = $_FILES['commodityPhoto']['size']>0?$_FILES['commodityPhoto']['type']:"image/jpeg";
+
     if ($photoType === "image/jpeg") {
         $fp = fopen($commodityPhoto, 'r');
         $fileContent = fread($fp, filesize($commodityPhoto));
@@ -20,7 +21,7 @@ try {
             header("location:create.php");
         } else { //送入資料庫
 
-            $sql = "INSERT INTO commodity (CommodityID, name, stock, price, commodityRemarks, photo) VALUES ('', :name, :stock, :price, :commodityRemarks, :photo)";
+            $sql = "INSERT INTO commodity (commodityID, name, stock, price, commodityRemarks, photo) VALUES ('', :name, :stock, :price, :commodityRemarks, :photo)";
             $result = $db->prepare($sql);
             $result->bindValue(':name', $commodityName);
             $result->bindValue(':stock', $commodityStock);

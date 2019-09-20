@@ -1,13 +1,13 @@
 <?php
 require_once 'header.php';
-$CommodityID = $_POST["CommodityID"];
+$commodityID = $_POST["commodityID"];
 
 try {
     loginRootCheck();
 
-    $sql = "UPDATE Commodity SET softDelete = 0 where CommodityID = :CommodityID;";
+    $sql = "UPDATE commodity SET softDelete = 0 where commodityID = :commodityID;";
     $result = $db->prepare($sql);
-    $result->bindValue(':CommodityID', $CommodityID);
+    $result->bindValue(':commodityID', $commodityID);
     $result->execute();
 
     echo "1";

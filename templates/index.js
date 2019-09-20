@@ -33,12 +33,14 @@ $("#login").on('click', function () {
     let dataToServer = {
         mail: $('#mailLogin').val(),
         password: $('#passwordLogin').val(),
+        memberRoute: "login"
     }
     $.ajax({
         type: "POST",
-        url: "./login.php",
+        url: "./member.php",
         data: dataToServer,
         success: function (e) {
+            console.log(e)
             if (e === "1") {
                 alert('登入成功');
                 window.location.replace('index.php');
@@ -148,15 +150,15 @@ $("#signUp").on('click', function () {
 
 $('.deleteButton').on('click', function () {
     let dataToServer = {
-        CommodityID: $(this).prev().val()
+        commodityID: $(this).prev().val()
     }
     $.ajax({
         type: "POST",
-        url: "./deleteCommodity.php",
+        url: "./deletecommodity.php",
         data: dataToServer,
         success: function (e) {
             if (e === "1") {
-                $('#dataRow' + dataToServer.CommodityID).remove()
+                $('#dataRow' + dataToServer.commodityID).remove()
                 alert('刪除成功');
             } else {
                 alert('刪除錯誤');
@@ -198,14 +200,14 @@ $('#updatePasswordMemberManagement').on('click', function () {
 })
 
 $('.buyButton').on('click', function () {
-    CommodityID = $(this).prev().val();
-    let amount = $('#amount' + CommodityID).val()
+    commodityID = $(this).prev().val();
+    let amount = $('#amount' + commodityID).val()
     let price = $(this).prev().prev().val()
     let dataToServer = {
         memberID: $("#memberID").val(),
-        CommodityID: $(this).prev().val(),
-        amount: $('#amount' + CommodityID).val(),
-        transactionRemarks: $('#transactionRemarks' + CommodityID).val(),
+        commodityID: $(this).prev().val(),
+        amount: $('#amount' + commodityID).val(),
+        transactionRemarks: $('#transactionRemarks' + commodityID).val(),
         total: price * amount,
         stock: $(this).prev().prev().prev().val(),
     }
@@ -217,43 +219,45 @@ $('.buyButton').on('click', function () {
             if (e === "1") {
                 let subTotal = dataToServer.stock - dataToServer.amount
                 alert('成功購買');
-                $("#stock" + CommodityID).text("剩餘：" + subTotal + "個");
-                $("#stockHidden" + CommodityID).val(subTotal);
+                $("#stock" + commodityID).text("剩餘：" + subTotal + "個");
+                $("#stockHidden" + commodityID).val(subTotal);
                 if (subTotal <= 0) {
-                    $("#buyButton" + CommodityID).attr("disabled", true);
-                    $("#transactionRemarks" + CommodityID).attr("disabled", true);
-                    $("#amount" + CommodityID).attr("disabled", true);
+                    $("#buyButton" + commodityID).attr("disabled", true);
+                    $("#transactionRemarks" + commodityID).attr("disabled", true);
+                    $("#amount" + commodityID).attr("disabled", true);
                 }
 
-                        let str = `<div class='container-fluid'>
+                let str = `<div class='container-fluid'>
                 <div class='row'>
-                    <div class='col-md-5'>
-                        <h4 id='nameTransaction'>${$("#nameHidden" + CommodityID).val()}</h4>
+                    <div class='col-md-3'>
+                        <h5 id='nameTransaction'>${$("#nameHidden" + commodityID).val()}</h5>
                     </div>
                     <div class="col-md-3">
-                        <h4 id="amountTransaction">${amount}</h4>
+                        <h5 id="transactionRemarksTransaction">${dataToServer.transactionRemarks}</h5>
                     </div>
-                    <div class="col-md-3">
-                        <h4 id="totalTransaction">${dataToServer.total}</h4>
+                    <div class="col-md-2">
+                        <h5 id="amountTransaction">${amount}</h5>
                     </div>
                     <div class="col-md-1">
-                        <h4><button type="button"
-                                class="btn btn-danger btn-xs pull-right deleteButtonTransaction">
-                                <span class="glyphicon glyphicon-remove"></span>刪除
-                            </button></h4>
+                        <h5 id="totalTransaction">${dataToServer.total}</h5>
+                    </div>
+                    <div class="col-md-1">
+                        <h5>剛剛...</h5>
                     </div>
                 </div>
             </div>`
-                        $("#modalTransaction").append(str);
-                    
-                } else if (e === "2") {
-                    alert('數量不得等於0');
-                } else if (e === "3") {
-                    alert('存貨不足');
-                    $("#buyButton" + CommodityID).attr("disabled", true);
-                    $("#transactionRemarks" + CommodityID).attr("disabled", true);
-                    $("#amount" + CommodityID).attr("disabled", true);
-                } else {
+                $("#modalTransaction").append(str);
+
+            } else if (e === "2") {
+                alert('數量不得等於0');
+            } else if (e === "9") {
+                alert('帳號問題');
+            } else if (e === "3") {
+                alert('存貨不足');
+                $("#buyButton" + commodityID).attr("disabled", true);
+                $("#transactionRemarks" + commodityID).attr("disabled", true);
+                $("#amount" + commodityID).attr("disabled", true);
+            } else {
                 alert("購買錯誤");
             }
         },

@@ -4,7 +4,7 @@ require_once 'header.php';
 $_SESSION['NoValue'] = "";
 try {
     loginRootCheck();
-    $CommodityID = htmlspecialchars($_GET["CommodityID"]);
+    $commodityID = htmlspecialchars($_GET["commodityID"]);
     $commodityName = htmlspecialchars($_POST["commodityName"]);
     $commodityStock = htmlspecialchars($_POST["commodityStock"]);
     $commodityPrice = htmlspecialchars($_POST["commodityPrice"]);
@@ -25,11 +25,11 @@ try {
 
         if ($commodityName == "" || $commodityStock == "" || $commodityPrice == "") { //判斷是否空值
             $_SESSION['NoValue'] = "品名 價格 數量不得為空值";
-            header("location:edit.php?CommodityID=$CommodityID");
+            header("location:edit.php?commodityID=$commodityID");
         } else { //送入資料庫
-            $sql = "UPDATE commodity SET name=:name, stock = :stock, price = :price, commodityRemarks = :commodityRemarks $checkPhoto where CommodityID = :CommodityID";
+            $sql = "UPDATE commodity SET name=:name, stock = :stock, price = :price, commodityRemarks = :commodityRemarks $checkPhoto where commodityID = :commodityID";
             $result = $db->prepare($sql);
-            $result->bindValue(':CommodityID', $CommodityID);
+            $result->bindValue(':commodityID', $commodityID);
             $result->bindValue(':name', $commodityName);
             $result->bindValue(':stock', $commodityStock);
             $result->bindValue(':price', $commodityPrice);

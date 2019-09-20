@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-19 12:50:44
+/* Smarty version 3.1.34-dev-7, created on 2019-09-20 11:42:01
   from 'C:\xampp\htdocs\bookLunch\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d835d8432f4d2_56069461',
+  'unifunc' => 'content_5d849ee979ad74_18437081',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dd4b2f5ec4e10b5e2169af72cc00e86b918ee5f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\index.html',
-      1 => 1568889853,
+      1 => 1568972518,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:src.html' => 1,
   ),
 ),false)) {
-function content_5d835d8432f4d2_56069461 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d849ee979ad74_18437081 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -33,7 +33,7 @@ $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_s
             <div class="col-md-1">
                 <button id="loginStart" type="button" class="btn btn-md btn-danger" data-toggle="modal"
                     data-target="#loginModal">
-                    會員登入
+                    登入
                 </button>
 
                 <!-- Modal -->
@@ -78,13 +78,13 @@ $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_s
             <?php if (isset($_SESSION['memberID'])) {?>
             <div class="col-md-1">
                 <button id="logout" type="button" class="btn btn-md btn-danger">
-                    會員登出
+                    登出
                 </button>
             </div>
             <div class="col-md-1">
                 <button type="button" class="btn btn-success btn-md" data-toggle="modal"
                     data-target="#memberManagementModal">
-                    會員管理
+                    密碼變更
                 </button>
                 <div class="modal fade in active" id="memberManagementModal" role="dialog">
                     <div class="modal-dialog modal-sm">
@@ -143,8 +143,7 @@ echo "訪客";
 
             </div>
             <?php if (!isset($_SESSION['memberID'])) {?>
-            <div class="col-md-1">
-            </div>
+
             <div class="col-md-1">
                 <button id="signUpStart" type="button" class="btn btn-success btn-md" data-toggle="modal"
                     data-target="#signUpModal">
@@ -196,6 +195,8 @@ echo "訪客";
                     </div>
                 </div>
             </div>
+            <div class="col-md-1">
+            </div>
             <?php }?>
             <?php if (isset($_SESSION['memberID'])) {?>
 
@@ -217,17 +218,20 @@ echo "訪客";
                             <div class="modal-body" id="modalTransaction">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <h3>便當名稱</h3>
+                                        <div class="col-md-3">
+                                            <h4>便當名稱</h4>
                                         </div>
                                         <div class="col-md-3">
-                                            <h3>訂購數量</h3>
+                                            <h4>備註</h4>
                                         </div>
-                                        <div class="col-md-3">
-                                            <h3>金額</h3>
+                                        <div class="col-md-2">
+                                            <h4>訂購數量</h4>
                                         </div>
                                         <div class="col-md-1">
-                                            <h3><span class="glyphicon glyphicon-remove pull-right"></span></h3>
+                                            <h4>金額</h4>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>訂購時間</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -236,25 +240,29 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['dataTransaction']->value) {
 ?>
-                                <div class="container-fluid">
+                                <div class="container-fluid" id="dataTransactionDiv<?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionID'];?>
+">
                                     <div class="row">
-                                        <div class="col-md-5">
-                                            <h4 id="nameTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['name'];?>
-</h4>
+                                        <div class="col-md-3">
+                                            <h5 id="nameTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['name'];?>
+</h5>
                                         </div>
                                         <div class="col-md-3">
-                                            <h4 id="amountTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['amount'];?>
-</h4>
+                                            <h5 id="transactionRemarksTransaction">
+                                                <?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionRemarks'];?>
+</h5>
                                         </div>
-                                        <div class="col-md-3">
-                                            <h4 id="totalTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['total'];?>
-</h4>
+                                        <div class="col-md-2">
+                                            <h5 id="amountTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['amount'];?>
+</h5>
                                         </div>
                                         <div class="col-md-1">
-                                            <h4><button type="button"
-                                                    class="btn btn-danger btn-xs pull-right deleteButtonTransaction">
-                                                    <span class="glyphicon glyphicon-remove"></span>刪除
-                                                </button></h4>
+                                            <h5 id="totalTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['total'];?>
+</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h5 id="totalTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['time'];?>
+</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +298,7 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['data']->value) {
 ?>
 
-        <div class="row paddingTop" id="dataRow<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+        <div class="row paddingTop" id="dataRow<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 ">
             <div class="col-md-3 paddingTop">
 
@@ -304,11 +312,11 @@ foreach ($_from as $_smarty_tpl->tpl_vars['data']->value) {
                         <h3>
                             <?php echo $_smarty_tpl->tpl_vars['data']->value['name'];?>
 
-                            <input type="hidden" id="nameHidden<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                            <input type="hidden" id="nameHidden<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 " value="<?php echo $_smarty_tpl->tpl_vars['data']->value['name'];?>
 ">
                             <h4>
-                                <div class="pull-right"><span id="stock<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                                <div class="pull-right"><span id="stock<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 ">剩餘：<?php echo $_smarty_tpl->tpl_vars['data']->value['stock'];?>
 個</span>
                                 </div>
@@ -329,9 +337,9 @@ echo "<br>";
                 <div class="form-inline">
                     <div class="form-group col-md-4">
 
-                        數量：<input type="number" class="form-control amount" id="amount<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                        數量：<input type="number" class="form-control amount" id="amount<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 "
-                            name="amount<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                            name="amount<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 " min="0"
                             max='<?php if ($_smarty_tpl->tpl_vars['data']->value['stock']) {
 echo $_smarty_tpl->tpl_vars['data']->value['stock'];
@@ -344,19 +352,19 @@ echo 50;
                     </div>
                     <div class="form-group col-md-7">
                         備註：
-                        <input maxlength="20" size="20" class="form-control"
-                            id="transactionRemarks<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
-">
+                        <input id="transactionRemarks<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
+" maxlength="20" size="20"
+                            class="form-control">
                     </div>
                     <div class="form-group col-md-1">
-                        <input type="hidden" id="stockHidden<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                        <input type="hidden" id="stockHidden<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 " value="<?php echo $_smarty_tpl->tpl_vars['data']->value['stock'];?>
 ">
                         <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['price'];?>
 ">
-                        <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                        <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 ">
-                        <button type="button" class="btn btn-success buyButton" id="buyButton<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                        <button type="button" class="btn btn-success buyButton" id="buyButton<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 ">
                             購買
                         </button>
@@ -373,13 +381,13 @@ echo 50;
 
             <div class="col-md-1">
 
-                <a href="edit.php?CommodityID=<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                <a href="edit.php?commodityID=<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 " class="btn btn-xs btn-info pull-right editButton">
                     <span class="glyphicon glyphicon-pencil"></span>修改
                 </a>
 
 
-                <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['CommodityID'];?>
+                <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['data']->value['commodityID'];?>
 ">
                 <button type="button" class="btn btn-danger btn-xs pull-right deleteButton">
                     <span class="glyphicon glyphicon-remove"></span>刪除
