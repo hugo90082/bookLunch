@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-19 11:14:53
+/* Smarty version 3.1.34-dev-7, created on 2019-09-23 04:31:23
   from 'C:\xampp\htdocs\bookLunch\templates\header.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d83470dba2956_22443489',
+  'unifunc' => 'content_5d882e7b7412c7_79683682',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d83470dba2956_22443489 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d882e7b7412c7_79683682 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 

@@ -54,9 +54,13 @@ $("#login").on('click', function () {
     })
 })
 $("#logout").on('click', function () {
+    let dataToServer = {
+        memberRoute: "logout"
+    }
     $.ajax({
         type: "POST",
-        url: "./logout.php",
+        url: "./member.php",
+        data: dataToServer,
         success: function (e) {
             if (e === "1") {
                 alert('登出成功');
@@ -127,11 +131,12 @@ $("#signUp").on('click', function () {
     let dataToServer = {
         mail: $("#mailSignUp").val(),
         password: $("#passwordSignUp").val(),
-        passwordCheck: $("#passwordCheckSignUp").val()
+        passwordCheck: $("#passwordCheckSignUp").val(),
+        memberRoute: "signUp"
     }
     $.ajax({
         type: "POST",
-        url: "./signUp.php",
+        url: "./member.php",
         data: dataToServer,
         success: function (e) {
             if (e === "1") {
@@ -139,7 +144,7 @@ $("#signUp").on('click', function () {
                 $('#signUpModal').modal('hide');
                 $('#loginModal').modal('show');
             } else {
-                alert('註冊錯誤');
+                alert('註冊錯誤 帳號重複');
             }
         },
         error: function () {
