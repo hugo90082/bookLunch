@@ -18,7 +18,7 @@ $smarty->right_delimiter = '}}';
 header("content-type:text/html; charset=utf-8");
 session_start();
 class contactDB{
-    function pdoContact(){
+    public function pdoContact(){
         $this->db = new PDO("mysql:host=localhost;dbname=book_lunch;port=3306", "root", "");
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->db->exec("SET CHARACTER SET utf8");

@@ -18,7 +18,7 @@ try {
     } else if ($subTotal < 0) { ## 判斷存貨數量
         echo "3";
     } else { ## 送入資料庫
-
+        $db->beginTransaction();
         $sql = "INSERT INTO transaction (memberID, commodityID, amount, transactionRemarks, total) VALUES ( :memberID, :commodityID, :amount, :transactionRemarks, :total);
         UPDATE commodity SET stock = :stock where commodityID = :commodityID;";
         $result = $db->prepare($sql);
@@ -29,10 +29,10 @@ try {
         $result->bindValue(':total', $total);
         $result->bindValue(':stock', $subTotal);
         $result->execute();
-
+        $db->commit();
         echo "1";
     }
 } catch (PDOException $err) {
-
+    $db->rollBack();
     echo "Error: " . $err->getMessage();
 }

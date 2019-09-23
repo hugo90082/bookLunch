@@ -1,9 +1,10 @@
 $(".amount").keyup(function () {
-    $(this).val($(this).attr("max"));
-    if ($(this).val() >= 50) {
-        $(this).val(50);
+    let amountMin = Math.min(50, $(this).prop("max"));
+    if (parseInt($(this).val()) >= amountMin) {
+        $(this).val(amountMin);
     }
 })
+
 
 $("#loginStart").on('click', function () {
     let loginInputCheck = 0;
@@ -37,12 +38,15 @@ $("#login").on('click', function () {
     }
     $.ajax({
         type: "POST",
-        url: "./member.php",
+        url: "./route.php",
         data: dataToServer,
         success: function (e) {
             console.log(e)
             if (e === "1") {
                 alert('登入成功');
+                window.location.replace('index.php');
+            } else if (e === "9") {
+                alert('帳號錯誤');
                 window.location.replace('index.php');
             } else {
                 alert('帳號或密碼錯誤');
@@ -64,6 +68,9 @@ $("#logout").on('click', function () {
         success: function (e) {
             if (e === "1") {
                 alert('登出成功');
+                window.location.replace('index.php');
+            } else if (e === "9") {
+                alert('帳號錯誤');
                 window.location.replace('index.php');
             } else {
                 alert('登出錯誤');
@@ -143,6 +150,9 @@ $("#signUp").on('click', function () {
                 alert('註冊成功');
                 $('#signUpModal').modal('hide');
                 $('#loginModal').modal('show');
+            } else if (e === "9") {
+                alert('帳號錯誤');
+                window.location.replace('index.php');
             } else {
                 alert('註冊錯誤 帳號重複');
             }
@@ -221,6 +231,7 @@ $('.buyButton').on('click', function () {
         url: "./transactionInsert.php",
         data: dataToServer,
         success: function (e) {
+            console.log(e);
             if (e === "1") {
                 let subTotal = dataToServer.stock - dataToServer.amount
                 alert('成功購買');
