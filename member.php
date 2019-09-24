@@ -24,6 +24,8 @@ class member extends contactDB
                 $_SESSION['memberMail'] = $row["mail"];
                 $_SESSION['memberID'] = $row["memberID"];
                 return "1";
+            } else if (isset($_SESSION['memberID'])) {
+                return "2";
             } else {
                 $_SESSION['mail'] = $mail;
                 return "0";
@@ -37,24 +39,19 @@ class member extends contactDB
     public function logout()
     {
         if (session_destroy()) {
-            echo "1";
+            return "1";
         } else {
-            echo "0";
+            return "9";
         }
     }
-    public function signUp()
+    public function signUp($mail, $password, $passwordCheck)
     {
-        $mail = htmlspecialchars($_POST["mail"]);
-        $password = htmlspecialchars($_POST["password"]);
-        $passwordCheck = htmlspecialchars($_POST["passwordCheck"]);
-
         try {
-            loginPageCheck();
             if ($mail == "" || $password == "" || $passwordCheck == "") { ##判斷是否空值
                 echo "2";
             } else if ($password != $passwordCheck) { ##判斷密碼不同
                 echo "3";
-            } else { //送入資料庫
+            } else { ##送入資料庫
                 $this->pdoContact();
                 $sql = "INSERT INTO member (memberID, mail,PWD) VALUES ('', :mail, :passwordCheck)";
                 $result = $this->db->prepare($sql);
@@ -64,7 +61,7 @@ class member extends contactDB
                 echo "1";
             }
         } catch (PDOException $err) {
-            //echo "Error: " . 
+
             $err->getMessage();
             echo "0";
             exit();

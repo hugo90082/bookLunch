@@ -176,50 +176,105 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">訂單管理</h4>
+                                <h3 class="modal-title">訂單管理 -- 近期訂購紀錄</h3>
                             </div>
-                            <div class="modal-body" id="modalTransaction">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <h4>便當名稱</h4>
+                            <div class="modal-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#home">所有會員訂單</a></li>
+                                    <li><a data-toggle="tab" href="#menu1">管理者個人訂單</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="home" class="tab-pane fade in active">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <h4>訂購人</h4>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4>便當名稱</h4>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <h4>備註</h4>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <h4>數量</h4>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <h4>金額</h4>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4>訂購時間</h4>
+                                            </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <h4>備註</h4>
+                                        {{foreach item=dataTransactionAll from=$rowTransactionAll}}
+                                        <div id="dataTransactionDiv{{$dataTransactionAll.transactionID}}">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <h5>{{$dataTransactionAll.mail}}</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h5 id="nameTransactionAll">{{$dataTransactionAll.name}}</h5>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h5 id="transactionRemarksTransactionAll">
+                                                        {{$dataTransactionAll.transactionRemarks}}</h5>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h5 id="amountTransactionAll">{{$dataTransactionAll.amount}}</h5>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h5 id="totalTransactionAll">{{$dataTransactionAll.total}}</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h5 id="totalTransactionAll">{{$dataTransactionAll.time}}</h5>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-2">
-                                            <h4>訂購數量</h4>
+                                        {{/foreach}}
+                                    </div>
+                                    <div id="menu1" class="tab-pane fade">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <h4>便當名稱</h4>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4>備註</h4>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <h4>訂購數量</h4>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <h4>金額</h4>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <h4>訂購時間</h4>
+                                            </div>
                                         </div>
-                                        <div class="col-md-1">
-                                            <h4>金額</h4>
+
+                                        <div id="modalTransaction"></div>
+                                        {{foreach item=dataTransaction from=$rowTransaction}}
+                                        <div id="dataTransactionDiv{{$dataTransaction.transactionID}}">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <h5 id="nameTransaction">{{$dataTransaction.name}}</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h5 id="transactionRemarksTransaction">
+                                                        {{$dataTransaction.transactionRemarks}}</h5>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <h5 id="amountTransaction">{{$dataTransaction.amount}}</h5>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <h5 id="totalTransaction">{{$dataTransaction.total}}</h5>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <h5 id="totalTransaction">{{$dataTransaction.time}}</h5>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <h4>訂購時間</h4>
-                                        </div>
+                                        {{/foreach}}
                                     </div>
                                 </div>
-                                {{foreach item=dataTransaction from=$rowTransaction}}
-                                <div class="container-fluid" id="dataTransactionDiv{{$dataTransaction.transactionID}}">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <h5 id="nameTransaction">{{$dataTransaction.name}}</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h5 id="transactionRemarksTransaction">
-                                                {{$dataTransaction.transactionRemarks}}</h5>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <h5 id="amountTransaction">{{$dataTransaction.amount}}</h5>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <h5 id="totalTransaction">{{$dataTransaction.total}}</h5>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h5 id="totalTransaction">{{$dataTransaction.time}}</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{/foreach}}
                             </div>
                             <div class="modal-footer">
 

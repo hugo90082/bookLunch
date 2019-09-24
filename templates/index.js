@@ -45,6 +45,9 @@ $("#login").on('click', function () {
             if (e === "1") {
                 alert('登入成功');
                 window.location.replace('index.php');
+            } else if (e === "2") {
+                alert('已登入');
+                window.location.replace('index.php');
             } else if (e === "9") {
                 alert('帳號錯誤');
                 window.location.replace('index.php');
@@ -63,7 +66,7 @@ $("#logout").on('click', function () {
     }
     $.ajax({
         type: "POST",
-        url: "./member.php",
+        url: "./route.php",
         data: dataToServer,
         success: function (e) {
             if (e === "1") {
@@ -143,13 +146,17 @@ $("#signUp").on('click', function () {
     }
     $.ajax({
         type: "POST",
-        url: "./member.php",
+        url: "./route.php",
         data: dataToServer,
         success: function (e) {
             if (e === "1") {
                 alert('註冊成功');
                 $('#signUpModal').modal('hide');
                 $('#loginModal').modal('show');
+            } else if (e === "2") {
+                alert('不能為空值');
+            } else if (e === "3") {
+                alert('兩次密碼不相同');
             } else if (e === "9") {
                 alert('帳號錯誤');
                 window.location.replace('index.php');
@@ -231,7 +238,6 @@ $('.buyButton').on('click', function () {
         url: "./transactionInsert.php",
         data: dataToServer,
         success: function (e) {
-            console.log(e);
             if (e === "1") {
                 let subTotal = dataToServer.stock - dataToServer.amount
                 alert('成功購買');
@@ -243,7 +249,7 @@ $('.buyButton').on('click', function () {
                     $("#amount" + commodityID).attr("disabled", true);
                 }
 
-                let str = `<div class='container-fluid'>
+                let str = `
                 <div class='row'>
                     <div class='col-md-3'>
                         <h5 id='nameTransaction'>${$("#nameHidden" + commodityID).val()}</h5>
@@ -260,8 +266,7 @@ $('.buyButton').on('click', function () {
                     <div class="col-md-1">
                         <h5>剛剛...</h5>
                     </div>
-                </div>
-            </div>`
+                </div>`
                 $("#modalTransaction").append(str);
 
             } else if (e === "2") {
@@ -275,6 +280,7 @@ $('.buyButton').on('click', function () {
                 $("#amount" + commodityID).attr("disabled", true);
             } else {
                 alert("購買錯誤");
+                window.location.replace('index.php');
             }
         },
         error: function () {

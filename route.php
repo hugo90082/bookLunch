@@ -11,8 +11,11 @@ if ($memberRoute === "login") {
     $member = new member;
     echo $member->logout();
 } else if ($memberRoute === "signUp") {
+    $mail = htmlspecialchars($_POST["mail"]);
+    $password = htmlspecialchars($_POST["password"]);
+    $passwordCheck = htmlspecialchars($_POST["passwordCheck"]);
     $member = new member;
-    $member->signUp();
+    echo $member->signUp($mail, $password ,$passwordCheck);
 } else {
     echo "9";
 }
