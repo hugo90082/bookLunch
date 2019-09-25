@@ -171,13 +171,13 @@
                 <!-- Modal -->
                 <div class="modal fade in active" id="transactionModal" role="dialog">
                     <div class="modal-dialog modal-lg">
-
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h3 class="modal-title">訂單管理 -- 近期訂購紀錄</h3>
                             </div>
+                            {{if $smarty.session.memberID === '1'}}
                             <div class="modal-body">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#home">所有會員訂單</a></li>
@@ -249,7 +249,6 @@
                                                 <h4>訂購時間</h4>
                                             </div>
                                         </div>
-
                                         <div id="modalTransaction"></div>
                                         {{foreach item=dataTransaction from=$rowTransaction}}
                                         <div id="dataTransactionDiv{{$dataTransaction.transactionID}}">
@@ -276,16 +275,58 @@
                                     </div>
                                 </div>
                             </div>
+                            {{/if}}
+                            {{if isset($smarty.session.memberID) && ($smarty.session.memberID !== '1')}}
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h4>便當名稱</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>備註</h4>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h4>訂購數量</h4>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h4>金額</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>訂購時間</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid" id="modalTransaction"></div>
+                            {{foreach item=dataTransaction from=$rowTransaction}}
+                            <div class="container-fluid" id="dataTransactionDiv{{$dataTransaction.transactionID}}">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h5 id="nameTransaction">{{$dataTransaction.name}}</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 id="transactionRemarksTransaction">
+                                            {{$dataTransaction.transactionRemarks}}</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5 id="amountTransaction">{{$dataTransaction.amount}}</h5>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h5 id="totalTransaction">{{$dataTransaction.total}}</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 id="totalTransaction">{{$dataTransaction.time}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/foreach}}
+                            {{/if}}
                             <div class="modal-footer">
-
                                 <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
             {{/if}}
             {{if isset($smarty.session.memberID) && ($smarty.session.memberID === '1')}}
 

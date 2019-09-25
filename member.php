@@ -48,9 +48,9 @@ class member extends contactDB
     {
         try {
             if ($mail == "" || $password == "" || $passwordCheck == "") { ##判斷是否空值
-                echo "2";
+                return "2";
             } else if ($password != $passwordCheck) { ##判斷密碼不同
-                echo "3";
+                return "3";
             } else { ##送入資料庫
                 $this->pdoContact();
                 $sql = "INSERT INTO member (memberID, mail,PWD) VALUES ('', :mail, :passwordCheck)";
@@ -58,12 +58,12 @@ class member extends contactDB
                 $result->bindValue(':mail', $mail);
                 $result->bindValue(':passwordCheck', MD5($passwordCheck));
                 $result->execute();
-                echo "1";
+                return "1";
             }
         } catch (PDOException $err) {
 
             $err->getMessage();
-            echo "0";
+            return "0";
             exit();
         }
     }

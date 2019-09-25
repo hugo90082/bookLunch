@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-24 11:41:20
+/* Smarty version 3.1.34-dev-7, created on 2019-09-25 04:34:44
   from 'C:\xampp\htdocs\bookLunch\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d89e4c01a2861_21682397',
+  'unifunc' => 'content_5d8ad2448fb516_09740417',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dd4b2f5ec4e10b5e2169af72cc00e86b918ee5f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\index.html',
-      1 => 1569318079,
+      1 => 1569378882,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:src.html' => 1,
   ),
 ),false)) {
-function content_5d89e4c01a2861_21682397 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8ad2448fb516_09740417 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -208,13 +208,13 @@ echo "訪客";
                 <!-- Modal -->
                 <div class="modal fade in active" id="transactionModal" role="dialog">
                     <div class="modal-dialog modal-lg">
-
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h3 class="modal-title">訂單管理 -- 近期訂購紀錄</h3>
                             </div>
+                            <?php if ($_SESSION['memberID'] === '1') {?>
                             <div class="modal-body">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a data-toggle="tab" href="#home">所有會員訂單</a></li>
@@ -300,7 +300,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                 <h4>訂購時間</h4>
                                             </div>
                                         </div>
-
                                         <div id="modalTransaction"></div>
                                         <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rowTransaction']->value, 'dataTransaction');
@@ -340,16 +339,71 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                     </div>
                                 </div>
                             </div>
+                            <?php }?>
+                            <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] !== '1')) {?>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h4>便當名稱</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>備註</h4>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h4>訂購數量</h4>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h4>金額</h4>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>訂購時間</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid" id="modalTransaction"></div>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['rowTransaction']->value, 'dataTransaction');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['dataTransaction']->value) {
+?>
+                            <div class="container-fluid" id="dataTransactionDiv<?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionID'];?>
+">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h5 id="nameTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['name'];?>
+</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 id="transactionRemarksTransaction">
+                                            <?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionRemarks'];?>
+</h5>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5 id="amountTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['amount'];?>
+</h5>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <h5 id="totalTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['total'];?>
+</h5>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h5 id="totalTransaction"><?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['time'];?>
+</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                            <?php }?>
                             <div class="modal-footer">
-
                                 <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <?php }?>
             <?php if (isset($_SESSION['memberID']) && ($_SESSION['memberID'] === '1')) {?>
 
