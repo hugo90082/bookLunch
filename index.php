@@ -16,8 +16,8 @@ $smarty->assign('row', $row);
 $result = $db->prepare("SELECT * FROM transaction 
                                     JOIN commodity 
                                     ON transaction.commodityID=commodity.commodityID 
-                                    where memberID = :memberID
-                                    order by time desc limit 3");
+                                    where memberID = :memberID and time >= DATE_SUB(now(),INTERVAL 1 DAY)
+                                    order by time desc limit 5");
 $result->bindValue(':memberID', $memberID);
 $result->execute();
 $rowTransaction = $result->fetchAll();
@@ -30,6 +30,7 @@ $result = $db->prepare("SELECT * FROM transaction
                                     ON transaction.commodityID=commodity.commodityID 
                                     JOIN member 
                                     ON transaction.memberID=member.memberID
+                                    where time >= DATE_SUB(now(),INTERVAL 5 DAY)
                                     order by time desc limit 15");
 $result->execute();
 $rowTransactionAll = $result->fetchAll();

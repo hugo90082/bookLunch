@@ -1,13 +1,10 @@
 <?php
 require_once 'header.php';
 /**
- * 
+ * 會員相關
  */
 class member extends contactDB
 {
-    /**
-     * 
-     */
     public function login($mail, $pwd)
     {
         try {
@@ -47,7 +44,7 @@ class member extends contactDB
     public function signUp($mail, $password, $passwordCheck)
     {
         try {
-            if ($mail == "" || $password == "" || $passwordCheck == "") { ##判斷是否空值
+            if ($mail === "" || $password === "" || $passwordCheck === "") { ##判斷是否空值
                 return "2";
             } else if ($password != $passwordCheck) { ##判斷密碼不同
                 return "3";

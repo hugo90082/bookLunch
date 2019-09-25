@@ -5,12 +5,11 @@ $(".amount").keyup(function () {
     }
 })
 
-
 $("#loginStart").on('click', function () {
     let loginInputCheck = 0;
     $("#login").attr("disabled", true);
     $("#passwordLogin").keyup(function () {
-        if (loginInputCheck == 1) {
+        if (loginInputCheck === 1) {
             $("#login").attr("disabled", false); //限制按鈕
         }
 
@@ -41,7 +40,6 @@ $("#login").on('click', function () {
         url: "./route.php",
         data: dataToServer,
         success: function (e) {
-            console.log(e)
             if (e === "1") {
                 alert('登入成功');
                 window.location.replace('index.php');
@@ -60,6 +58,7 @@ $("#login").on('click', function () {
         }
     })
 })
+
 $("#logout").on('click', function () {
     let dataToServer = {
         memberRoute: "logout"
@@ -97,7 +96,7 @@ $("#signUpStart").on('click', function () {
         if (reg.test(mail)) {
             $("#mailValueSignUp").text("格式正確");
             disabledValueMail = 1
-            if (disabledValueMail == 1 && disabledValuePwd == 1) {
+            if (disabledValueMail === 1 && disabledValuePwd === 1) {
                 $("#signUp").attr("disabled", false); //格式正確就解開按鈕
             }
         } else {
@@ -107,10 +106,10 @@ $("#signUpStart").on('click', function () {
     })
     $("#passwordSignUp").keyup(function () {
         password = $(this).val();
-        if (password == passwordCheck) {
+        if (password === passwordCheck) {
             $("#passwordValueSignUp").text("兩次密碼相同");
             disabledValuePwd = 1
-            if (disabledValueMail == 1 && disabledValuePwd == 1) {
+            if (disabledValueMail === 1 && disabledValuePwd === 1) {
                 $("#signUp").attr("disabled", false);
             }
         } else {
@@ -121,11 +120,11 @@ $("#signUpStart").on('click', function () {
 
     $("#passwordCheckSignUp").keyup(function () {
         passwordCheck = $(this).val();
-        if (password == passwordCheck) {
+        if (password === passwordCheck) {
             $("#passwordValueSignUp").text("兩次密碼相同");
             disabledValuePwd = 1
 
-            if (disabledValueMail == 1 && disabledValuePwd == 1) {
+            if (disabledValueMail === 1 && disabledValuePwd === 1) {
                 $("#signUp").attr("disabled", false);
             }
 
