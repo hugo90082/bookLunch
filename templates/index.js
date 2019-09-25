@@ -46,6 +46,8 @@ $("#login").on('click', function () {
             } else if (e === "2") {
                 alert('已登入');
                 window.location.replace('index.php');
+            } else if (e === "3"){
+                alert('不得為空值');
             } else if (e === "9") {
                 alert('帳號錯誤');
                 window.location.replace('index.php');
@@ -254,7 +256,7 @@ $('.buyButton').on('click', function () {
                         <h5 id='nameTransaction'>${$("#nameHidden" + commodityID).val()}</h5>
                     </div>
                     <div class="col-md-3">
-                        <h5 id="transactionRemarksTransaction">${dataToServer.transactionRemarks}</h5>
+                        <h5 id="transactionRemarksTransaction"></h5>
                     </div>
                     <div class="col-md-2">
                         <h5 id="amountTransaction">${amount}</h5>
@@ -266,7 +268,9 @@ $('.buyButton').on('click', function () {
                         <h5>剛剛...</h5>
                     </div>
                 </div>`
-                $("#modalTransaction").append(str);
+                $("#modalTransaction").prepend(str);
+                $("#transactionRemarksTransaction").text(dataToServer.transactionRemarks);
+                
 
             } else if (e === "2") {
                 alert('數量不得等於0');

@@ -5,6 +5,9 @@ require_once 'header.php';
  */
 class member extends contactDB
 {
+    /**
+     * 這是登入
+     */
     public function login($mail, $pwd)
     {
         try {
@@ -20,6 +23,7 @@ class member extends contactDB
                 session_unset();
                 $_SESSION['memberMail'] = $row["mail"];
                 $_SESSION['memberID'] = $row["memberID"];
+
                 return "1";
             } else if (isset($_SESSION['memberID'])) {
                 return "2";
@@ -30,38 +34,29 @@ class member extends contactDB
         } catch (PDOException $err) {
             $err->getMessage();
             return "9";
-            exit();
+            //return false;
         }
+        //return true;
     }
     public function logout()
     {
-        if (session_destroy()) {
-            return "1";
-        } else {
-            return "9";
-        }
+        return (session_destroy()) ? "1" : "9";
     }
-    public function signUp($mail, $password, $passwordCheck)
+
+    public function signUp($mail, $password)
     {
         try {
-            if ($mail === "" || $password === "" || $passwordCheck === "") { ##判斷是否空值
-                return "2";
-            } else if ($password != $passwordCheck) { ##判斷密碼不同
-                return "3";
-            } else { ##送入資料庫
-                $this->pdoContact();
-                $sql = "INSERT INTO member (memberID, mail,PWD) VALUES ('', :mail, :passwordCheck)";
-                $result = $this->db->prepare($sql);
-                $result->bindValue(':mail', $mail);
-                $result->bindValue(':passwordCheck', MD5($passwordCheck));
-                $result->execute();
-                return "1";
-            }
+            $this->pdoContact();
+            $sql = "INSERT INTO member (memberID, mail,PWD) VALUES ('', :mail, :password)";##送入資料庫
+            $result = $this->db->prepare($sql);
+            $result->bindValue(':mail', $mail);
+            $result->bindValue(':password', MD5($password));
+            $result->execute();
+            return "1";
         } catch (PDOException $err) {
-
             $err->getMessage();
             return "0";
-            exit();
+            
         }
     }
 }

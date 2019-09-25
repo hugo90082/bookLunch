@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2019-09-25 04:34:44
+/* Smarty version 3.1.34-dev-7, created on 2019-09-25 09:30:22
   from 'C:\xampp\htdocs\bookLunch\templates\index.html' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5d8ad2448fb516_09740417',
+  'unifunc' => 'content_5d8b178e550df4_67503176',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8dd4b2f5ec4e10b5e2169af72cc00e86b918ee5f' => 
     array (
       0 => 'C:\\xampp\\htdocs\\bookLunch\\templates\\index.html',
-      1 => 1569378882,
+      1 => 1569396330,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:src.html' => 1,
   ),
 ),false)) {
-function content_5d8ad2448fb516_09740417 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8b178e550df4_67503176 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender("file:header.html", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -314,7 +314,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['dataTransaction']->value) {
 </h5>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <h5 id="transactionRemarksTransaction">
+                                                    <h5 id="transactionRemarksTransaction<?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionID'];?>
+">
                                                         <?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionRemarks'];?>
 </h5>
                                                 </div>
@@ -374,7 +375,8 @@ foreach ($_from as $_smarty_tpl->tpl_vars['dataTransaction']->value) {
 </h5>
                                     </div>
                                     <div class="col-md-3">
-                                        <h5 id="transactionRemarksTransaction">
+                                        <h5 id="transactionRemarksTransaction<?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionID'];?>
+">
                                             <?php echo $_smarty_tpl->tpl_vars['dataTransaction']->value['transactionRemarks'];?>
 </h5>
                                     </div>
